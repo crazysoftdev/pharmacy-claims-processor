@@ -1,0 +1,51 @@
+# SERVER CONFIGURATION
+
+server:
+  port: 8080
+
+
+# CUSTOM APPLICATION PROPERTIES
+
+app:
+  kafka:
+    topic:
+      claims: "claims-topic"
+      processed: "processed-claims-topic"
+      retry: "claims-retry-topic"
+    retry-count: 3
+
+
+# DATABASE CONFIGURATION (PostgreSQL)
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/claimsdb
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+  
+  
+  # JPA / HIBERNATE CONFIGURATION
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  
+  # KAFKA CONFIGURATION
+  
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      group-id: "claims-processor-group"
+      auto-offset-reset: earliest
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
