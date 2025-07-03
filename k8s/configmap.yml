@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pharmacy-claims-processor-config
+data:
+  SPRING_KAFKA_BOOTSTRAP-SERVERS: "kafka-service:9092"
+  APP_KAFKA_RETRY-COUNT: "5"
