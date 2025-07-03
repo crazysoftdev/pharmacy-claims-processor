@@ -13,11 +13,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "error_claims")
-
 public class ErrorClaim {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(columnDefinition = "TEXT")
+    private String failedClaimPayload;
 
     @Column(columnDefinition = "TEXT")
     private String errorMessage;
