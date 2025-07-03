@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pharmacy-claims-processor-deployment
+spec:
+  replicas: 2
+  selector: 
+    matchLabels:
+      app: pharmacy-claims-processor
+  template:
+    metadata:
+      labels:
+        app: pharmacy-claims-processor
+    spec:
+      containers:
+      - name: pharmacy-claims-processor
+        image: pharmacy-claims-processor:1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+          name: pharmacy-claims-processor-config
